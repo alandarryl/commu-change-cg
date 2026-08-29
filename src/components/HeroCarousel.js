@@ -12,6 +12,11 @@ const slides = [
     title: 'Proximité & Sécurité',
     desc: 'Votre partenaire financier de confiance à Brazzaville et dans toute la région.',
   },
+  {
+    image: '/images/hero3.jpg',
+    title: 'Service Client Exceptionnel',
+    desc: 'Notre équipe est là pour vous accompagner dans tous vos échanges de devises.',
+  },
 ];
 
 export default function HeroCarousel() {
