@@ -1,15 +1,20 @@
-// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
 module.exports = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
         congo: {
-          green: '#009543',     // Vert principal
-          greenDark: '#006B30', // Vert foncé pour survol / dégradés
-          yellow: '#FBDE4A',    // Touche jaune
-          red: '#DC241F',       // Touche rouge
+          green: '#009543',
+          greenDark: '#006B30',
+          yellow: '#FBDE4A',
+          red: '#DC241F',
         },
       },
     },
   },
+  plugins: [],
 }

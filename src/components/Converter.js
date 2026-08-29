@@ -1,12 +1,18 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Converter() {
   const [amount, setAmount] = useState(100);
-  const [type, setType] = useState('buy'); // 'buy' ou 'sell'
-  const rateUSD = 610; // Taux de démonstration
-
+  const [type, setType] = useState('buy');
+  const [mounted, setMounted] = useState(false); // 1. État pour suivre le montage client
+  
+  const rateUSD = 610;
   const result = amount * rateUSD;
+
+  // 2. Activer le rendu dynamiquement après le premier chargement
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section id="convertisseur" className="py-16 bg-white">
@@ -41,7 +47,10 @@ export default function Converter() {
 
           <div className="p-4 bg-congo-green/10 border border-congo-green/30 rounded-xl text-center">
             <span className="block text-sm text-slate-600">Vous recevez environ</span>
-            <span className="text-3xl font-extrabold text-congo-green">{result.toLocaleString()} FCFA</span>
+            <span className="text-3xl font-extrabold text-congo-green">
+              {/* 3. Afficher la valeur formatée uniquement quand le client est prêt */}
+              {mounted ? result.toLocaleString('fr-FR') : result} FCFA
+            </span>
           </div>
 
           <a
