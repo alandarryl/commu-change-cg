@@ -3,17 +3,22 @@ import { useState, useEffect } from 'react';
 
 const slides = [
   {
-    image: '/images/hero1.jpg',
+    image: '/images/Hero1.jpg',
     title: 'Transparence & Rapidité',
     desc: 'Bénéficiez des meilleurs taux d’échange de devises en toute confiance.',
   },
   {
-    image: '/images/hero2.jpg',
+    image: '/images/Hero2.jpg',
     title: 'Proximité & Sécurité',
     desc: 'Votre partenaire financier de confiance à Brazzaville et dans toute la région.',
   },
   {
-    image: '/images/hero3.jpg',
+    image: '/images/Hero3.jpg',
+    title: 'Service Client Exceptionnel',
+    desc: 'Notre équipe est là pour vous accompagner dans tous vos échanges de devises.',
+  },
+  {
+    image: '/images/Hero4.jpg',
     title: 'Service Client Exceptionnel',
     desc: 'Notre équipe est là pour vous accompagner dans tous vos échanges de devises.',
   },
