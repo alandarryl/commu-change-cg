@@ -46,11 +46,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Présentation des Services (Cartes) */}
-      <Services />
-
       {/* 4. Tableau des Taux de Change */}
       <RateTable />
+
+      {/* 3. Présentation des Services (Cartes) */}
+      <Services />
 
       {/* 5. Calculateur de Conversion */}
       {/* <Converter /> */}
