@@ -1,159 +1,150 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { supabase } from '@/lib/supabase';
+
+const DAYS_MAP = [
+  { key: 'monday', label: 'Lundi' },
+  { key: 'tuesday', label: 'Mardi' },
+  { key: 'wednesday', label: 'Mercredi' },
+  { key: 'thursday', label: 'Jeudi' },
+  { key: 'friday', label: 'Vendredi' },
+  { key: 'saturday', label: 'Samedi' },
+  { key: 'sunday', label: 'Dimanche' },
+];
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
+  const [settings, setSettings] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert('Votre message a été envoyé ! Nous vous contacterons rapidement.');
-  };
+  useEffect(() => {
+    async function fetchSettings() {
+      const { data } = await supabase.from('site_settings').select('*').eq('id', 1).single();
+      if (data) setSettings(data);
+      setLoading(false);
+    }
+    fetchSettings();
+  }, []);
 
   return (
     <main className="min-h-screen bg-slate-50 py-12 md:py-20">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-6">
         
         {/* Titre de la page */}
-        <div className="text-center mb-14">
-          <h1 className="text-4xl font-extrabold text-slate-900 mb-3">Contactez-nous</h1>
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-extrabold text-slate-900 mb-3">Nous trouver & Nous contacter</h1>
           <p className="text-slate-600 max-w-xl mx-auto">
-            Une question sur nos taux ? Besoin de réserver une grosse somme de devises ? Notre équipe est à votre disposition.
+            Une question sur nos taux ? Besoin de réserver des devises ? Contactez-nous directement par téléphone, WhatsApp ou rendez-nous visite.
           </p>
           <div className="w-16 h-1 bg-congo-yellow mx-auto mt-4 rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           
-          {/* Bloc Informations de Contact & Réseaux */}
-          <div className="space-y-8">
-            <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-              <h2 className="text-2xl font-bold text-slate-800 mb-6">Nos Coordonnées</h2>
-              
-              <div className="space-y-6">
-                {/* Localisation */}
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-congo-green/10 text-congo-green rounded-2xl flex items-center justify-center font-bold text-xl flex-shrink-0">
-                    📍
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-800">Adresse du Bureau</h3>
-                    <p className="text-slate-600 text-sm">Avenue Amilcar Cabral, Centre-ville</p>
-                    <p className="text-slate-600 text-sm font-semibold">Brazzaville, République du Congo</p>
-                  </div>
-                </div>
+          {/* Bloc Coordonnées & Horaires */}
+          <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 space-y-6">
+            <h2 className="text-2xl font-bold text-slate-800 border-b border-slate-100 pb-4">
+              Informations Agence
+            </h2>
 
-                {/* Téléphone */}
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-congo-green/10 text-congo-green rounded-2xl flex items-center justify-center font-bold text-xl flex-shrink-0">
-                    📞
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-800">Téléphone</h3>
-                    <p className="text-slate-600 text-sm">+242 06 000 00 00</p>
-                    <p className="text-slate-600 text-sm">+242 05 000 00 00</p>
-                  </div>
+            <div className="space-y-6">
+              {/* Localisation */}
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-congo-green/10 text-congo-green rounded-2xl flex items-center justify-center font-bold text-xl shrink-0">
+                  📍
                 </div>
-
-                {/* Horaires */}
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-congo-green/10 text-congo-green rounded-2xl flex items-center justify-center font-bold text-xl flex-shrink-0">
-                    🕒
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-800">Heures d'ouverture</h3>
-                    <p className="text-slate-600 text-sm">Lundi - Samedi : 08h00 - 18h00</p>
-                    <p className="text-congo-red text-sm font-medium">Dimanche : Fermé</p>
-                  </div>
+                <div>
+                  <h3 className="font-bold text-slate-800">Adresse du Bureau</h3>
+                  <p className="text-slate-600 text-sm font-semibold">
+                    {loading ? 'Chargement...' : settings?.address || 'Avenue Amilcar Cabral, Brazzaville'}
+                  </p>
                 </div>
               </div>
 
-              {/* Boutons d'action Réseaux Sociaux */}
-              <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row gap-4">
-                {/* WhatsApp Direct */}
-                <a
-                  href="https://wa.me/242000000000?text=Bonjour,%20j'aimerais%20avoir%20des%20informations%20sur%20les%20taux"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl transition shadow-sm"
-                >
-                  <span>💬 WhatsApp</span>
-                </a>
+              {/* Téléphone */}
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-congo-green/10 text-congo-green rounded-2xl flex items-center justify-center font-bold text-xl shrink-0">
+                  📞
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-800">Téléphone Direct</h3>
+                  {loading ? (
+                    <p className="text-slate-400 text-sm">Chargement...</p>
+                  ) : (
+                    <a
+                      href={`tel:${settings?.phone}`}
+                      className="text-slate-900 font-extrabold text-lg hover:text-emerald-600 transition block"
+                    >
+                      {settings?.phone || '+242 06 000 00 00'}
+                    </a>
+                  )}
+                </div>
+              </div>
 
-                {/* Facebook */}
-                <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl transition shadow-sm"
-                >
-                  <span>📘 Facebook</span>
-                </a>
+              {/* Horaires */}
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-congo-green/10 text-congo-green rounded-2xl flex items-center justify-center font-bold text-xl shrink-0">
+                  🕒
+                </div>
+                <div className="w-full">
+                  <h3 className="font-bold text-slate-800 mb-2">Heures d'ouverture</h3>
+                  {loading ? (
+                    <p className="text-slate-400 text-sm">Chargement des horaires...</p>
+                  ) : (
+                    <ul className="space-y-1.5 text-sm bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                      {DAYS_MAP.map(({ key, label }) => {
+                        const hourText = settings?.opening_hours?.[key] || 'Fermé';
+                        const isClosed = hourText.toLowerCase().includes('fermé');
+                        return (
+                          <li key={key} className="flex justify-between items-center py-0.5">
+                            <span className="text-slate-600 font-medium">{label}</span>
+                            <span className={isClosed ? 'text-red-500 font-bold' : 'text-slate-900 font-semibold'}>
+                              {hourText}
+                            </span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </div>
               </div>
             </div>
 
-            {/* Carte Google Maps (Emplacement Iframe) */}
-            <div className="bg-white p-4 rounded-3xl shadow-sm border border-slate-200 overflow-hidden h-64 relative">
-              <iframe
-                title="Localisation du bureau"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15914.978135891395!2d15.2750!3d-4.2633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMTUnNDcuOSJTIDE1wrAxNiczMC4wIkU!5e0!3m2!1sfr!2scg!4v1600000000000!5m2!1sfr!2scg"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                className="rounded-2xl"
-              ></iframe>
+            {/* Boutons d'accès rapide WhatsApp & Facebook */}
+            <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row gap-4">
+              <a
+                href={`https://wa.me/${settings?.whatsapp || '242000000000'}?text=Bonjour,%20j'aimerais%20avoir%20des%20informations%20sur%20les%20taux`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-4 rounded-2xl transition shadow-md"
+              >
+                <span className="text-xl">💬</span>
+                <span>Discuter sur WhatsApp</span>
+              </a>
+
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-2xl transition shadow-md"
+              >
+                <span className="text-xl">📘</span>
+                <span>Facebook</span>
+              </a>
             </div>
           </div>
 
-          {/* Formulaire de Contact */}
-          <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-            <h2 className="text-2xl font-bold text-slate-800 mb-6">Envoyez-nous un message</h2>
-            
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Nom complet</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Ex: Jean Mabiala"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full p-4 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-congo-green transition bg-slate-50"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Numéro de téléphone</label>
-                <input
-                  type="tel"
-                  required
-                  placeholder="+242 06..."
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full p-4 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-congo-green transition bg-slate-50"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Message ou demande spécifique</label>
-                <textarea
-                  rows="5"
-                  required
-                  placeholder="Bonjour, je voudrais échanger 2000$ la semaine prochaine..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full p-4 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-congo-green transition bg-slate-50"
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-congo-green hover:bg-congo-greenDark text-white font-bold py-4 rounded-xl shadow-md transition"
-              >
-                Envoyer le message
-              </button>
-            </form>
+          {/* Carte Google Maps */}
+          <div className="bg-white p-3 rounded-3xl shadow-sm border border-slate-200 overflow-hidden h-[460px] relative">
+            <iframe
+              title="Localisation du bureau"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15914.978135891395!2d15.2750!3d-4.2633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMTUnNDcuOSJTIDE1wrAxNiczMC4wIkU!5e0!3m2!1sfr!2scg!4v1600000000000!5m2!1sfr!2scg"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              className="rounded-2xl"
+            ></iframe>
           </div>
 
         </div>
