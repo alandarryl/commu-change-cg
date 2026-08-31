@@ -1,27 +1,23 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 
-export default function DashboardAdmin({ session }) {
+export default function DashboardAdmin() {
   const [rates, setRates] = useState([]);
   const [savingId, setSavingId] = useState(null);
   const [message, setMessage] = useState('');
-  const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchRates();
   }, []);
 
   const fetchRates = async () => {
-    const { data } = await supabase.from('exchange_rates').select('*').order('code');
+    setLoading(true);
+    const { data, error } = await supabase.from('exchange_rates').select('*').order('code');
     if (data) setRates(data);
-  };
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push('/login');
-    router.refresh();
+    if (error) alert('Erreur lors du chargement : ' + error.message);
+    setLoading(false);
   };
 
   const handleRateChange = (id, field, value) => {
@@ -52,22 +48,22 @@ export default function DashboardAdmin({ session }) {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-100 flex items-center justify-center font-bold text-slate-500">
+        Chargement des taux...
+      </div>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-slate-100 p-4 sm:p-8">
       <div className="max-w-3xl mx-auto space-y-6">
         
-        {/* En-tête Admin */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex justify-between items-center">
-          <div>
-            <h1 className="text-xl font-black text-slate-900">Gestion des Taux</h1>
-            <p className="text-xs text-slate-500">{session.user.email}</p>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl transition"
-          >
-            Déconnexion
-          </button>
+        {/* En-tête simple */}
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <h1 className="text-xl font-black text-slate-900">Gestion des Taux de Change</h1>
+          <p className="text-xs text-slate-500 mt-1">Modifiez les taux ci-dessous et cliquez sur Enregistrer.</p>
         </div>
 
         {message && (
@@ -76,7 +72,7 @@ export default function DashboardAdmin({ session }) {
           </div>
         )}
 
-        {/* Cartes de gestion des taux */}
+        {/* Formulaire des taux */}
         <div className="space-y-4">
           {rates.map((rate) => (
             <div key={rate.id} className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
