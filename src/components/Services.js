@@ -6,7 +6,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section className="py-16 bg-white">
+    <section id="Services" className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-3xl font-bold text-center text-slate-800 mb-2">Nos Services</h2>
         <div className="w-16 h-1 bg-congo-yellow mx-auto mb-10 rounded-full"></div>

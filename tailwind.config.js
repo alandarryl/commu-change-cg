@@ -17,4 +17,11 @@ module.exports = {
     },
   },
   plugins: [],
+  theme: {
+    extend: {
+      screens: {
+        '3xl': '1920px', // Ciblage spécifique écrans TV / Full HD & 4K
+      },
+    },
+  },
 }

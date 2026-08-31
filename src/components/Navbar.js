@@ -7,44 +7,38 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      {/* Adaptation de la hauteur (h-20 -> 2xl:h-32 -> 3xl:h-40) et suppression du max-w-7xl étriqué */}
+      <div className="w-full max-w-[95vw] mx-auto px-6 h-20 2xl:h-32 3xl:h-40 flex items-center justify-between transition-all">
         
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-congo-green flex items-center justify-center font-black text-white text-xl shadow-md">
+        {/* Logo XL / Énorme sur très grand écran */}
+        <Link href="/" className="flex items-center gap-3 2xl:gap-6">
+          <div className="w-10 h-10 2xl:w-20 2xl:h-20 3xl:w-24 3xl:h-24 rounded-xl 2xl:rounded-3xl bg-congo-green flex items-center justify-center font-black text-white text-xl 2xl:text-4xl 3xl:text-5xl shadow-md shrink-0">
             $
           </div>
           <div>
-            <span className="font-extrabold text-xl text-slate-900 tracking-tight block leading-none">
+            <span className="font-extrabold text-xl 2xl:text-4xl 3xl:text-5xl text-slate-900 tracking-tight block leading-none">
               COMI CHANGE CONGO
             </span>
-            <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase">
+            <span className="text-[10px] 2xl:text-base 3xl:text-xl text-slate-400 font-semibold tracking-wider uppercase block mt-1 2xl:mt-2">
               Brazzaville
             </span>
           </div>
         </Link>
 
-        {/* Navigation Desktop */}
-        <nav className="hidden md:flex items-center gap-8 font-semibold text-sm text-slate-600">
-          {/* <Link href="/" className="hover:text-congo-green transition">Accueil</Link> */}
+        {/* Navigation Desktop agrandie */}
+        <nav className="hidden md:flex items-center gap-8 2xl:gap-12 font-semibold text-sm 2xl:text-2xl text-slate-600">
           <Link href="/#taux" className="hover:text-congo-green transition">Taux du jour</Link>
-          <Link href="/#convertisseur" className="hover:text-congo-green transition">Calculateur</Link>
+          <Link href="/#Services" className="hover:text-congo-green transition">Services</Link>
           <Link href="/contact" className="hover:text-congo-green transition">Contact</Link>
         </nav>
 
-        {/* Boutons d'action Desktop */}
+        {/* Boutons d'action Desktop agrandis */}
         <div className="hidden md:flex items-center gap-4">
-          {/* <Link
-            href="/dashboard"
-            className="text-xs font-bold text-slate-500 hover:text-slate-800 transition px-3 py-2"
-          >
-            Admin
-          </Link> */}
           <a
             href="https://wa.me/242000000000"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm px-5 py-2.5 rounded-xl transition shadow-sm flex items-center gap-2"
+            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm 2xl:text-xl px-5 2xl:px-8 py-2.5 2xl:py-4 rounded-xl 2xl:rounded-2xl transition shadow-sm flex items-center gap-2"
           >
             <span>💬 WhatsApp</span>
           </a>
