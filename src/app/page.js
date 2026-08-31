@@ -53,7 +53,7 @@ export default function Home() {
       <RateTable />
 
       {/* 5. Calculateur de Conversion */}
-      <Converter />
+      {/* <Converter /> */}
       {/* <Footer /> */}
     </main>
   );

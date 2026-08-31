@@ -16,7 +16,7 @@ export default function Navbar() {
           </div>
           <div>
             <span className="font-extrabold text-xl text-slate-900 tracking-tight block leading-none">
-              comi change congo
+              COMI CHANGE CONGO
             </span>
             <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase">
               Brazzaville
