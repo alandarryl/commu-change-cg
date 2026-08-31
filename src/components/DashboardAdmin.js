@@ -58,7 +58,7 @@ export default function DashboardAdmin() {
 
   return (
     <main className="min-h-screen bg-slate-100 p-4 sm:p-8">
-      <div className="max-w-3xl mx-auto space-y-6">
+      <div className="max-w-7xl mx-auto space-y-6">
         
         {/* En-tête simple */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
