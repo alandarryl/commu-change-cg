@@ -6,53 +6,53 @@ export default function RateTable() {
   ];
 
   return (
-    <section id="taux" className="py-16 bg-slate-50">
-      <div className="max-w-4xl mx-auto px-6">
+    <section id="taux" className="py-20 bg-slate-50">
+      {/* Passage de max-w-4xl à max-w-6xl pour une présence beaucoup plus large */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* En-tête de section */}
-        <div className="text-center mb-8">
-          <span className="text-congo-green text-xs font-bold uppercase tracking-widest bg-emerald-100/60 px-3 py-1 rounded-full">
+        <div className="text-center mb-10">
+          <span className="text-congo-green text-xs font-extrabold uppercase tracking-widest bg-emerald-100/70 px-4 py-1.5 rounded-full">
             Mise à jour en direct
           </span>
-          <h2 className="text-3xl font-extrabold text-slate-900 mt-2">
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mt-3">
             Taux de Change du Jour
           </h2>
-          <p className="text-sm text-slate-500 font-medium mt-1">
-            Dernière actualisation : <span className="text-slate-800 font-semibold">Aujourd'hui à 09h00</span>
+          <p className="text-base text-slate-500 font-medium mt-2">
+            Dernière actualisation : <span className="text-slate-900 font-bold">Aujourd'hui à 09h00</span>
           </p>
         </div>
 
-        {/* Conteneur Tableau */}
-        <div className="bg-white rounded-2xl shadow-lg border border-slate-200/80 overflow-hidden">
+        {/* Conteneur Tableau plus large */}
+        <div className="bg-white rounded-3xl shadow-xl border border-slate-200/80 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               
               {/* En-tête */}
               <thead>
-                <tr className="bg-slate-900 text-white text-xs uppercase tracking-wider">
-                  <th className="p-4 sm:p-5 font-bold">Devise</th>
-                  <th className="p-4 sm:p-5 font-bold text-center">ACHATS</th>
-                  <th className="p-4 sm:p-5 font-bold text-center">VENTES</th>
-                  {/* <th className="p-4 sm:p-5 font-bold text-right">Action</th> */}
+                <tr className="bg-slate-900 text-white text-sm uppercase tracking-wider">
+                  <th className="py-5 px-6 sm:px-10 font-extrabold">Devise</th>
+                  <th className="py-5 px-6 sm:px-10 font-extrabold text-center">ACHATS</th>
+                  <th className="py-5 px-6 sm:px-10 font-extrabold text-center">VENTES</th>
                 </tr>
               </thead>
 
               {/* Corps */}
-              <tbody className="divide-y divide-slate-100 text-sm font-medium">
+              <tbody className="divide-y divide-slate-100 text-base font-semibold">
                 {rates.map((row, i) => (
                   <tr 
                     key={i} 
-                    className="hover:bg-emerald-50/40 transition-colors even:bg-slate-50/50"
+                    className="hover:bg-emerald-50/50 transition-colors even:bg-slate-50/40"
                   >
                     {/* Nom de la devise */}
-                    <td className="p-4 sm:p-5">
-                      <div className="flex items-center gap-3">
-                        <span className="text-3xl drop-shadow-sm">{row.flag}</span>
+                    <td className="py-6 px-6 sm:px-10">
+                      <div className="flex items-center gap-4">
+                        <span className="text-4xl drop-shadow-sm">{row.flag}</span>
                         <div>
-                          <span className="font-extrabold text-slate-900 block leading-tight">
+                          <span className="font-black text-slate-900 text-lg sm:text-xl block leading-tight">
                             {row.currency}
                           </span>
-                          <span className="text-xs text-slate-400 font-normal">
+                          <span className="text-xs sm:text-sm text-slate-400 font-medium">
                             {row.name}
                           </span>
                         </div>
@@ -60,41 +60,24 @@ export default function RateTable() {
                     </td>
 
                     {/* Prix d'Achat (Vert) */}
-                    <td className="p-4 sm:p-5 text-center">
-                      <span className="inline-block bg-emerald-50 text-congo-greenDark border border-emerald-200/60 font-extrabold px-3 py-1.5 rounded-lg text-base">
+                    <td className="py-6 px-6 sm:px-10 text-center">
+                      <span className="inline-block bg-emerald-50 text-congo-greenDark border border-emerald-200/80 font-black px-5 py-2.5 rounded-xl text-lg sm:text-xl shadow-xs">
                         {row.buy}
                       </span>
                     </td>
 
                     {/* Prix de Vente (Rouge) */}
-                    <td className="p-4 sm:p-5 text-center">
-                      <span className="inline-block bg-red-50 text-congo-red border border-red-200/60 font-extrabold px-3 py-1.5 rounded-lg text-base">
+                    <td className="py-6 px-6 sm:px-10 text-center">
+                      <span className="inline-block bg-red-50 text-congo-red border border-red-200/80 font-black px-5 py-2.5 rounded-xl text-lg sm:text-xl shadow-xs">
                         {row.sell}
                       </span>
                     </td>
-
-                    {/* Bouton WhatsApp direct */}
-                    {/* <td className="p-4 sm:p-5 text-right">
-                      <a
-                        href={`https://wa.me/242000000000?text=Bonjour,%20je%20souhaite%20réserver%20des%20${encodeURIComponent(row.currency)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 bg-slate-100 hover:bg-congo-green hover:text-white text-slate-700 font-bold text-xs px-3 py-2 rounded-lg transition"
-                      >
-                        Réserver
-                      </a>
-                    </td> */}
                   </tr>
                 ))}
               </tbody>
 
             </table>
           </div>
-
-          {/* Note d'information en bas */}
-          {/* <div className="bg-slate-50 border-t border-slate-100 p-4 text-center text-xs text-slate-500">
-            💡 Taux sujets à de légères variations selon le volume. Passez en agence ou contactez-nous sur WhatsApp pour bloquer un taux.
-          </div> */}
         </div>
 
       </div>
