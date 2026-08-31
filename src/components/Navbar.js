@@ -26,7 +26,7 @@ export default function Navbar() {
 
         {/* Navigation Desktop */}
         <nav className="hidden md:flex items-center gap-8 font-semibold text-sm text-slate-600">
-          <Link href="/" className="hover:text-congo-green transition">Accueil</Link>
+          {/* <Link href="/" className="hover:text-congo-green transition">Accueil</Link> */}
           <Link href="/#taux" className="hover:text-congo-green transition">Taux du jour</Link>
           <Link href="/#convertisseur" className="hover:text-congo-green transition">Calculateur</Link>
           <Link href="/contact" className="hover:text-congo-green transition">Contact</Link>
@@ -34,12 +34,12 @@ export default function Navbar() {
 
         {/* Boutons d'action Desktop */}
         <div className="hidden md:flex items-center gap-4">
-          <Link
+          {/* <Link
             href="/dashboard"
             className="text-xs font-bold text-slate-500 hover:text-slate-800 transition px-3 py-2"
           >
             Admin
-          </Link>
+          </Link> */}
           <a
             href="https://wa.me/242000000000"
             target="_blank"
